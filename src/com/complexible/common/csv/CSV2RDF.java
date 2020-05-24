@@ -227,7 +227,7 @@ public class CSV2RDF implements Runnable {
 					stmts.add(new StatementGenerator(subject, predicate, object));
 				}
 
-				@SuppressWarnings({ "unchecked", "rawtypes" })
+				@SuppressWarnings({ "unchecked" })
 				private <V extends Value> ValueGenerator<V> generatorFor(V value) {
 					ValueGenerator<V> generator = generators.get(value);
 					if (generator != null) {
@@ -240,7 +240,7 @@ public class CSV2RDF implements Runnable {
 						String str = value.toString();
 						ValueProvider[] providers = providersFor(str);
 						if (providers.length == 0) {
-							generator = new ConstantValueGenerator(value);
+							generator = new ConstantValueGenerator<>(value);
 						}
 						else if (value instanceof URI) {
 							generator = (ValueGenerator<V>) new TemplateURIGenerator(str, providers);
