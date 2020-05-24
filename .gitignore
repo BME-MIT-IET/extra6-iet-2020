@@ -1,4 +1,8 @@
 .DS_Store
+.idea
+.scannerwork
+cars.ttl
+csv2rdf.iml
 /bin
 /build
 /dist
