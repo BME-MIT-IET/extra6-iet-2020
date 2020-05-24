@@ -93,14 +93,16 @@ public class CSV2RDF implements Runnable {
 		System.out.println("Input   : " + inputFile);
 		System.out.println("Output  : " + outputFile);
 		
-		try {
-			Reader in = Files.newReader(inputFile, INPUT_CHARSET);
-			CSVReader reader = new CSVReader(in, toChar(separator), toChar(quote), toChar(escape));
+		try (Reader in = Files.newReader(inputFile, INPUT_CHARSET);
+			 CSVReader reader = new CSVReader(in, toChar(separator), toChar(quote), toChar(escape));
+			 Writer out = Files.newWriter(outputFile, OUTPUT_CHARSET))
+		{
+
+
 			String[] row = reader.readNext();
 
 			Preconditions.checkNotNull(row, "Input file is empty!");
 
-			Writer out = Files.newWriter(outputFile, OUTPUT_CHARSET);
 			RDFWriter writer = Rio.createWriter(RDFFormat.forFileName(outputFile.getName(), RDFFormat.TURTLE), out);
 
 			Template template = new Template(Arrays.asList(row), templateFile, writer);
@@ -114,10 +116,6 @@ public class CSV2RDF implements Runnable {
 			}
 
 			writer.endRDF();
-
-			reader.close();
-			in.close();
-			out.close();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
