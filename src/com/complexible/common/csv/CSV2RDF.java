@@ -296,7 +296,7 @@ public class CSV2RDF implements Runnable {
 		}
 	}
 
-	private static abstract class ValueProvider {
+	private abstract static class ValueProvider {
 		 private final String placeholder = UUID.randomUUID().toString();
 		 private boolean isHash;
 
@@ -416,9 +416,9 @@ public class CSV2RDF implements Runnable {
 
 		public Literal generate(int rowIndex, String[] row) {
 			String value = applyTemplate(rowIndex, row);
-			if (datatype == null) {
+			if (datatype == null)
 				return lang == null ? FACTORY.createLiteral(value) : FACTORY.createLiteral(value, lang);
-			} else return FACTORY.createLiteral(value, datatype);
+			else return FACTORY.createLiteral(value, datatype);
 		}
 	}
 
