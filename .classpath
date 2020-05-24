@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/openrdf-sesame-2.7.10-onejar.jar"/>
 	<classpathentry kind="lib" path="lib/javax.inject-1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/sonarqube-ant-task-2.7.0.1612.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
