@@ -132,6 +132,8 @@ public class Main {
             String[] descriptions = generateGibberish(numberOfRows, 0, 20);
             int[] prices = generateRandomInts(numberOfRows, 500, 50000);
 
+            fw.write("Year,Make,Model,Description,Price\n");
+
             for (int i = 0; i < numberOfRows; i++) {
                 fw.write(years[i] + "," +
                         makes[i] + "," +
