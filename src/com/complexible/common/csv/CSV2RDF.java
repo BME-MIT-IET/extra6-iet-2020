@@ -128,23 +128,6 @@ public class CSV2RDF implements Runnable {
 		return value.charAt(0);
 	}
 
-	private static ParserConfig getParserConfig() {
-		ParserConfig config = new ParserConfig();
-
-		Set<RioSetting<?>> aNonFatalErrors = Sets.<RioSetting<?>> newHashSet(
-		                BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES);
-
-		config.setNonFatalErrors(aNonFatalErrors);
-
-		config.set(BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, false);
-		config.set(BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES, false);
-		config.set(BasicParserSettings.VERIFY_DATATYPE_VALUES, false);
-		config.set(BasicParserSettings.VERIFY_LANGUAGE_TAGS, false);
-		config.set(BasicParserSettings.VERIFY_RELATIVE_URIS, false);
-
-		return config;
-	}
-
 	private class Template {
 		private List<StatementGenerator> stmts = Lists.newArrayList();
 		private List<ValueProvider> valueProviders = Lists.newArrayList();
@@ -198,6 +181,23 @@ public class CSV2RDF implements Runnable {
 				}
 			}
 			return index == -1 ? null : new RowValueProvider(index);
+		}
+
+		private ParserConfig getParserConfig() {
+			ParserConfig config = new ParserConfig();
+
+			Set<RioSetting<?>> aNonFatalErrors = Sets.<RioSetting<?>> newHashSet(
+					BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES);
+
+			config.setNonFatalErrors(aNonFatalErrors);
+
+			config.set(BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, false);
+			config.set(BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES, false);
+			config.set(BasicParserSettings.VERIFY_DATATYPE_VALUES, false);
+			config.set(BasicParserSettings.VERIFY_LANGUAGE_TAGS, false);
+			config.set(BasicParserSettings.VERIFY_RELATIVE_URIS, false);
+
+			return config;
 		}
 
 		private void parseTemplate(List<String> cols, File templateFile, final RDFWriter writer) throws Exception {
