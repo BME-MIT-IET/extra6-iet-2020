@@ -2,9 +2,9 @@
 
 A statikus analízist SonarQube és SonaLint eszközök segítségével végeztem.
 
-Az elsőként a SonarQube szervert telepítettem, más lehetőség hiányában, a saját asztali számítógépemen. Telepítés viszonylag egyszerű volt, pár környezeti változót kellett beállítnai, és mivel nekem több java jdk verzió is fel van telepítve, meg kellett adnom egy config fáljban a megfelelő jdk verzió elérési útját.
-Telepítés után, a szerverre adminként bejelentkezve létrehoztam felhasználókat magamnak, valamint a többi csapattársamnak is ilyenkor tudnék felhasználokat létrehozni. Ezután az otthoni hálozatom routerében felvettem egy új port-forwwarding szabályt az számítógépem 9000-es portjára, hogy a csapattársaim is elérjék a SonarQube szervert. 
-Ezután a SonarQube-ot kellet integrálnom az Ant build rendszerrel. Az integrációhoz a "SonarScanner for Ant"-et kell használni, amit egy jar file-ban kapunk. Ezt a jar fájlt én a lib mappában helyeztem el. Majd az Ant build.xml fáljában létrehoztam egy új build targetet, ahol ezt a jart meghivatkoztam.
+Az elsőként a SonarQube szervert telepítettem, más lehetőség hiányában, a saját asztali számítógépemen. Telepítés viszonylag egyszerű volt, pár környezeti változót kellett beállítnai, és mivel nekem több java jdk verzió is fel van telepítve, meg kellett adnom egy config fáljban a megfelelő verzió elérési útját.
+Telepítés után, a szerverre adminként bejelentkezve létrehoztam felhasználókat magamnak, valamint a többi csapattársamnak is ilyenkor tudnék felhasználokat létrehozni. Ezután az otthoni hálozatom routerében felvettem egy új port-forwarding szabályt az számítógépem 9000-es portjára, hogy a csapattársaim is elérjék a SonarQube szervert. 
+Ezután a SonarQube-ot kellet integrálnom az Ant build rendszerrel. Az integrációhoz a "SonarScanner for Ant"-et kell használni, amit egy jar file formájában kapunk. Ezt a jar fájlt én a lib mappában helyeztem el, majd az Ant build.xml fáljában létrehoztam egy új build targetet, ahol ezt a jart meghivatkoztam. Ezután projektkonyvtárban egy parancssorból az _ant sonar_ parancsot kiadva elvégezhető a statikus analízis.
 
 SonarQube analízis eredménye a projekt kezdeti állapotára:
 
