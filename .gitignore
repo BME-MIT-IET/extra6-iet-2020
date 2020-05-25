@@ -6,4 +6,4 @@ csv2rdf.iml
 /bin
 /build
 /dist
-/nft_inputgenerator/nft_input.csv
+/nft_inputgenerator/*.csv
