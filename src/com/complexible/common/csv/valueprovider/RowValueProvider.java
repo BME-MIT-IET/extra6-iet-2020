@@ -1,7 +1,5 @@
 package com.complexible.common.csv.valueprovider;
 
-import com.complexible.common.csv.valueprovider.ValueProvider;
-
 public class RowValueProvider extends ValueProvider {
 		private final int colIndex;
 
