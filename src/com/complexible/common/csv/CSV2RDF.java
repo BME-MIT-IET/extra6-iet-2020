@@ -7,8 +7,14 @@ import com.complexible.common.csv.extensions.IO;
 import com.google.common.base.Preconditions;
 
 import com.google.common.io.Files;
-import io.airlift.command.*;
-import org.openrdf.rio.*;
+import io.airlift.command.Arguments;
+import io.airlift.command.Cli;
+import io.airlift.command.Command;
+import io.airlift.command.Option;
+import io.airlift.command.Help;
+import org.openrdf.rio.RDFFormat;
+import org.openrdf.rio.RDFWriter;
+import org.openrdf.rio.Rio;
 
 import java.io.File;
 import java.io.Reader;

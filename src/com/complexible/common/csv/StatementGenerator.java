@@ -2,7 +2,11 @@ package com.complexible.common.csv;
 
 import com.complexible.common.csv.valuegenerator.ValueGenerator;
 import com.complexible.common.csv.extensions.OpenRDFValueFactory;
-import org.openrdf.model.*;
+import org.openrdf.model.Resource;
+import org.openrdf.model.Statement;
+import org.openrdf.model.URI;
+import org.openrdf.model.Value;
+
 
 public class StatementGenerator {
 

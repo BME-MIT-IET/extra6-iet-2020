@@ -17,8 +17,20 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 
-import org.openrdf.model.*;
-import org.openrdf.rio.*;
+import org.openrdf.model.BNode;
+import org.openrdf.model.Literal;
+import org.openrdf.model.Resource;
+import org.openrdf.model.Statement;
+import org.openrdf.model.URI;
+import org.openrdf.model.Value;
+import org.openrdf.rio.ParserConfig;
+import org.openrdf.rio.RDFFormat;
+import org.openrdf.rio.RDFHandler;
+import org.openrdf.rio.RDFHandlerException;
+import org.openrdf.rio.RDFParser;
+import org.openrdf.rio.RDFWriter;
+import org.openrdf.rio.Rio;
+import org.openrdf.rio.RioSetting;
 import org.openrdf.rio.helpers.BasicParserSettings;
 import org.openrdf.rio.helpers.RDFHandlerBase;
 
