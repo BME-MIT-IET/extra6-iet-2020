@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<project name="csv2rdf" default="dist" basedir=".">
+<project name="csv2rdf" default="dist" basedir="." xmlns:sonar="antlib:org.sonar.ant">
 	<description>CSV2RDF utility</description>
+
 	
 	<!-- Global Properties -->
 	<property name="src" location="src"/>
@@ -11,6 +12,17 @@
 	<property name="project.version" value="0.1"/>
 	
 	<property name="mainclass" value="com.complexible.common.csv.CSV2RDF"/>
+
+	<!-- Define the SonarQube global properties (the most usual way is to pass these properties via the command line) -->
+	<property name="sonar.host.url" value="http://localhost:9000" />
+
+	<!-- Define the SonarQube project properties -->
+	<property name="sonar.projectKey" value="bme-iet-extra6-2020.csv2rdf" />
+	<property name="sonar.projectName" value="csv2rdf" />
+	<property name="sonar.projectVersion" value="1.0" />
+	<property name="sonar.sources" value="src" />
+	<property name="sonar.java.binaries" value="build" />
+	<property name="sonar.java.libraries" value="lib/*.jar" />
 	
 	<path id="project.class.path">
 		<pathelement location="lib/"/>
@@ -36,7 +48,7 @@
 	</target>
 	
 	<target name="compile" depends="init">
-		<javac source="1.6" target="1.6" destdir="${build}" debug="yes"
+		<javac source="7" target="7" destdir="${build}" debug="yes"
 			deprecation="yes">
 			<classpath refid="project.class.path"/>
 			<src path="${src}"/>
@@ -93,4 +105,17 @@
 			</zipfileset>
 		</zip>
 	</target>
+
+	<!-- Define SonarScanner for Ant Target -->
+	<target name="sonar">
+		<taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+			<!-- Update the following line, or put the "sonarqube-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+			<classpath path="lib/sonarqube-ant-task-2.7.0.1612.jar" />
+		</taskdef>
+
+		<!-- Execute SonarScanner for Ant Analysis -->
+		<sonar:sonar />
+	</target>
+
+
 </project>

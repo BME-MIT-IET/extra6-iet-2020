@@ -93,14 +93,16 @@ public class CSV2RDF implements Runnable {
 		System.out.println("Input   : " + inputFile);
 		System.out.println("Output  : " + outputFile);
 		
-		try {
-			Reader in = Files.newReader(inputFile, INPUT_CHARSET);
-			CSVReader reader = new CSVReader(in, toChar(separator), toChar(quote), toChar(escape));
+		try (Reader in = Files.newReader(inputFile, INPUT_CHARSET);
+			 CSVReader reader = new CSVReader(in, toChar(separator), toChar(quote), toChar(escape));
+			 Writer out = Files.newWriter(outputFile, OUTPUT_CHARSET))
+		{
+
+
 			String[] row = reader.readNext();
 
 			Preconditions.checkNotNull(row, "Input file is empty!");
 
-			Writer out = Files.newWriter(outputFile, OUTPUT_CHARSET);
 			RDFWriter writer = Rio.createWriter(RDFFormat.forFileName(outputFile.getName(), RDFFormat.TURTLE), out);
 
 			Template template = new Template(Arrays.asList(row), templateFile, writer);
@@ -114,10 +116,6 @@ public class CSV2RDF implements Runnable {
 			}
 
 			writer.endRDF();
-
-			reader.close();
-			in.close();
-			out.close();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
@@ -128,23 +126,6 @@ public class CSV2RDF implements Runnable {
 	private static char toChar(String value) {
 		Preconditions.checkArgument(value.length() == 1, "Expecting a single character but got %s", value);
 		return value.charAt(0);
-	}
-
-	private static ParserConfig getParserConfig() {
-		ParserConfig config = new ParserConfig();
-
-		Set<RioSetting<?>> aNonFatalErrors = Sets.<RioSetting<?>> newHashSet(
-		                BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES);
-
-		config.setNonFatalErrors(aNonFatalErrors);
-
-		config.set(BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, false);
-		config.set(BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES, false);
-		config.set(BasicParserSettings.VERIFY_DATATYPE_VALUES, false);
-		config.set(BasicParserSettings.VERIFY_LANGUAGE_TAGS, false);
-		config.set(BasicParserSettings.VERIFY_RELATIVE_URIS, false);
-
-		return config;
 	}
 
 	private class Template {
@@ -202,6 +183,23 @@ public class CSV2RDF implements Runnable {
 			return index == -1 ? null : new RowValueProvider(index);
 		}
 
+		private ParserConfig getParserConfig() {
+			ParserConfig config = new ParserConfig();
+
+			Set<RioSetting<?>> aNonFatalErrors = Sets.<RioSetting<?>> newHashSet(
+					BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES);
+
+			config.setNonFatalErrors(aNonFatalErrors);
+
+			config.set(BasicParserSettings.FAIL_ON_UNKNOWN_DATATYPES, false);
+			config.set(BasicParserSettings.FAIL_ON_UNKNOWN_LANGUAGES, false);
+			config.set(BasicParserSettings.VERIFY_DATATYPE_VALUES, false);
+			config.set(BasicParserSettings.VERIFY_LANGUAGE_TAGS, false);
+			config.set(BasicParserSettings.VERIFY_RELATIVE_URIS, false);
+
+			return config;
+		}
+
 		private void parseTemplate(List<String> cols, File templateFile, final RDFWriter writer) throws Exception {
 			String templateStr = insertPlaceholders(cols, templateFile);
 
@@ -229,7 +227,7 @@ public class CSV2RDF implements Runnable {
 					stmts.add(new StatementGenerator(subject, predicate, object));
 				}
 
-				@SuppressWarnings({ "unchecked", "rawtypes" })
+				@SuppressWarnings({ "unchecked" })
 				private <V extends Value> ValueGenerator<V> generatorFor(V value) {
 					ValueGenerator<V> generator = generators.get(value);
 					if (generator != null) {
@@ -242,7 +240,7 @@ public class CSV2RDF implements Runnable {
 						String str = value.toString();
 						ValueProvider[] providers = providersFor(str);
 						if (providers.length == 0) {
-							generator = new ConstantValueGenerator(value);
+							generator = new ConstantValueGenerator<>(value);
 						}
 						else if (value instanceof URI) {
 							generator = (ValueGenerator<V>) new TemplateURIGenerator(str, providers);
@@ -298,7 +296,7 @@ public class CSV2RDF implements Runnable {
 		}
 	}
 
-	private static abstract class ValueProvider {
+	private abstract static class ValueProvider {
 		 private final String placeholder = UUID.randomUUID().toString();
 		 private boolean isHash;
 
@@ -374,7 +372,7 @@ public class CSV2RDF implements Runnable {
 		}
 	}
 
-	private static abstract class TemplateValueGenerator<V extends Value> implements ValueGenerator<V> {
+	private abstract static class TemplateValueGenerator<V extends Value> implements ValueGenerator<V> {
 		private final String template;
 		private final ValueProvider[] providers;
 
@@ -418,8 +416,9 @@ public class CSV2RDF implements Runnable {
 
 		public Literal generate(int rowIndex, String[] row) {
 			String value = applyTemplate(rowIndex, row);
-			return datatype == null ? lang == null ? FACTORY.createLiteral(value) : FACTORY.createLiteral(value, lang)
-			                : FACTORY.createLiteral(value, datatype);
+			if (datatype == null)
+				return lang == null ? FACTORY.createLiteral(value) : FACTORY.createLiteral(value, lang);
+			else return FACTORY.createLiteral(value, datatype);
 		}
 	}
 
