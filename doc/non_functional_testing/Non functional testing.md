@@ -24,8 +24,13 @@ Az erőforráshasználat az 500,000 soros fáljra:
  
 Megfigyelések:  
   - A program jól skálázható, a futási idő a bemenet méretének körülbelül lineáris függvénye. (O(n))
+<<<<<<< HEAD
   - A memóriahasználat kis mértékben függ a bemenet méretétől.
   - A CPU használat a JVM indulásakor felugrik, majd beáll 6.25%-ra. Ez azért van, mert a tesztkörnyezetben 16 szál volt elérhető, és a program 1 szálon fut, az a szál viszont 100%-ra van terhelve. Amennyiben cél a futásidő csökkentése, érdemes lehet párhuzamosítással próbálkozni.
+=======
+  - A memóriahasználat nem függ a bemenet méretétől.
+  - A CPU használat a JVM indulásakor felugrik, majd beáll 6.25%-ra. Ez azért van, mert a tesztkörnyezetben 16 szál volt elérhető, és a program 1 szálon fut, az a szál viszont 100%-ra van terhelve. Amennyiben cél a futásidő csökkentése, érdemes lenne párhuzamosítással próbálkozni.
+>>>>>>> parent of 2fdde0e... Update Non functional testing.md
   
   ## Biztonság
   
