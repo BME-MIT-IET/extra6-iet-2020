@@ -26,3 +26,5 @@ Több egyszerűbb kódrész is átírásra került, az érthetőség javítása 
   A hibajavítások után a SonarQube analízis eredménye:
 
   ![](/doc/static_analysis/sonarqube2.png)
+  
+  Látható, hogy a javítások után a SonarQube _Quality Gate_-jének állapota _Failed_ lett. Ez csak amiatt van, mert a SonarQube alapértelmezett beállításoknál megköveteli, hogy az újonnan írt kódrészek tesztlefedettsége legalább 80% legyen. Mivel nekünk jelenleg nincsenek egységtesztjeink, így ez nem is teljesül. 
