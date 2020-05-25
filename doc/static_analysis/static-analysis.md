@@ -11,3 +11,18 @@ SonarQube analízis eredménye a projekt kezdeti állapotára:
 ![](/doc/static_analysis/sonarqube1.png)
 
 Fejlesztőkörnyezetek közül mi az IntelliJ IDEA mellett döntöttünk. Ehhez elérhető a SonarLint plugin, amely csatlakozni tud az előzőekben létrehozott SonarQube szerverhez, és így jelentősen megkönnyíti a statikus analízis által felfedett hibák követését és javítását. 
+
+## Kódanalízis alapján javított hibák:
+
+Több egyszerűbb kódrész is átírásra került, az érthetőség javítása érdekében:
+ - _Try with Resources_ bevezetése a manuális _stream.close()_ metódushívások helyett
+ - Egymásba ágyazott ?: operátorok átírása átláthatóbb _if(...)_ szerkezetre.
+ - Kulcsszavak sorrendjének megváltoztatása, hogy azok kövessék a Java standardot.
+
+ Valamint még a következő modosításokat végeztük:
+  - Egy privát függvényt áthelyeztünk egy belső osztályon belülre, mert az nem volt az osztályon kívül meghívva.
+  - Bevezettünk egy _Logger_ objektumot a _System.out.println(...)_ hívások kiváltására.
+
+  A hibajavítások után a SonarQube analízis eredménye:
+
+  ![](/doc/static_analysis/sonarqube2.png)
