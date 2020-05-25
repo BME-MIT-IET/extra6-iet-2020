@@ -2,7 +2,7 @@ package com.complexible.common.csv.valuegenerator;
 
 import org.openrdf.model.BNode;
 
-import static com.complexible.common.csv.utilities.OpenRdfValueFactory.FACTORY;
+import static com.complexible.common.csv.utilities.ValueFactoryUtil.FACTORY;
 
 public class BNodeGenerator implements ValueGenerator<BNode> {
     private BNode value = null;

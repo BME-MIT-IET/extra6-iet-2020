@@ -4,7 +4,7 @@ import com.complexible.common.csv.valuegenerator.TemplateValueGenerator;
 import com.complexible.common.csv.valueprovider.ValueProvider;
 import org.openrdf.model.URI;
 
-import static com.complexible.common.csv.utilities.OpenRdfValueFactory.FACTORY;
+import static com.complexible.common.csv.utilities.ValueFactoryUtil.FACTORY;
 
 public class TemplateURIGenerator extends TemplateValueGenerator<URI> {
 

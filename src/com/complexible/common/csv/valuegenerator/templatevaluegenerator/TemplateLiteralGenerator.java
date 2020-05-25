@@ -5,7 +5,7 @@ import com.complexible.common.csv.valueprovider.ValueProvider;
 import org.openrdf.model.Literal;
 import org.openrdf.model.URI;
 
-import static com.complexible.common.csv.utilities.OpenRdfValueFactory.FACTORY;
+import static com.complexible.common.csv.utilities.ValueFactoryUtil.FACTORY;
 
 public class TemplateLiteralGenerator extends TemplateValueGenerator<Literal> {
 		private final URI datatype;
