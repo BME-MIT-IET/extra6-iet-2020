@@ -1,7 +1,7 @@
 package com.complexible.common.csv;
 
 import com.complexible.common.csv.valuegenerator.ValueGenerator;
-import com.complexible.common.csv.extensions.OpenRDFValueFactory;
+import com.complexible.common.csv.utilities.OpenRdfValueFactory;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
@@ -24,6 +24,6 @@ public class StatementGenerator {
         Resource s = subject.generate(rowIndex, row);
         URI p = predicate.generate(rowIndex, row);
         Value o = object.generate(rowIndex, row);
-        return OpenRDFValueFactory.FACTORY.createStatement(s, p, o);
+        return OpenRdfValueFactory.FACTORY.createStatement(s, p, o);
     }
 }

@@ -3,7 +3,7 @@
 package com.complexible.common.csv;
 
 import au.com.bytecode.opencsv.CSVReader;
-import com.complexible.common.csv.extensions.IO;
+import com.complexible.common.csv.utilities.InOutCharsetUtil;
 import com.google.common.base.Preconditions;
 
 import com.google.common.io.Files;
@@ -23,9 +23,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
-import static com.complexible.common.csv.extensions.Casting.toChar;
-import static com.complexible.common.csv.extensions.IO.INPUT_CHARSET;
-import static com.complexible.common.csv.extensions.Logger.logger;
+import static com.complexible.common.csv.utilities.CastingUtil.toChar;
+import static com.complexible.common.csv.utilities.InOutCharsetUtil.INPUT_CHARSET;
+import static com.complexible.common.csv.utilities.LoggerUtil.logger;
 
 /**
  * Converts a CSV file to RDF based on a given template
@@ -69,7 +69,7 @@ public class CSV2RDF implements Runnable {
 
 		try (Reader in = Files.newReader(inputFile, INPUT_CHARSET);
 			 CSVReader reader = new CSVReader(in, toChar(separator), toChar(quote), toChar(escape));
-			 Writer out = Files.newWriter(outputFile, IO.OUTPUT_CHARSET))
+			 Writer out = Files.newWriter(outputFile, InOutCharsetUtil.OUTPUT_CHARSET))
 		{
 
 

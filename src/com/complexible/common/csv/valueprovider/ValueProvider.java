@@ -1,6 +1,6 @@
 package com.complexible.common.csv.valueprovider;
 
-import com.complexible.common.csv.extensions.IO;
+import com.complexible.common.csv.utilities.InOutCharsetUtil;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
 import com.google.common.io.BaseEncoding;
@@ -15,7 +15,7 @@ public abstract class ValueProvider {
     public String provide(int rowIndex, String[] row) {
         String value = provideValue(rowIndex, row);
         if (value != null && isHash) {
-            HashCode hash = Hashing.sha1().hashString(value, IO.OUTPUT_CHARSET);
+            HashCode hash = Hashing.sha1().hashString(value, InOutCharsetUtil.OUTPUT_CHARSET);
             value = BaseEncoding.base32Hex().omitPadding().lowerCase().encode(hash.asBytes());
         }
         return value;

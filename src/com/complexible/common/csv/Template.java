@@ -2,8 +2,8 @@ package com.complexible.common.csv;
 
 import com.complexible.common.csv.valuegenerator.BNodeGenerator;
 import com.complexible.common.csv.valuegenerator.ValueGenerator;
-import com.complexible.common.csv.extensions.ConstantValueGenerator;
-import com.complexible.common.csv.extensions.IO;
+import com.complexible.common.csv.utilities.ConstantValueGenerator;
+import com.complexible.common.csv.utilities.InOutCharsetUtil;
 import com.complexible.common.csv.valuegenerator.templatevaluegenerator.TemplateLiteralGenerator;
 import com.complexible.common.csv.valuegenerator.templatevaluegenerator.TemplateURIGenerator;
 import com.complexible.common.csv.valueprovider.RowNumberProvider;
@@ -58,7 +58,7 @@ public class Template {
     private String insertPlaceholders(List<String> cols, File templateFile) throws Exception {
         Pattern p = Pattern.compile("([\\$|\\#]\\{[^}]*\\})");
 
-        Matcher m = p.matcher(Files.toString(templateFile, IO.INPUT_CHARSET));
+        Matcher m = p.matcher(Files.toString(templateFile, InOutCharsetUtil.INPUT_CHARSET));
         StringBuffer sb = new StringBuffer();
         while (m.find()) {
             String var = m.group(1);
