@@ -1,4 +1,4 @@
-package com.complexible.common.csv.utilities;
+package com.complexible.common.csv.valuegenerator;
 
 import com.complexible.common.csv.valuegenerator.ValueGenerator;
 import org.openrdf.model.Value;

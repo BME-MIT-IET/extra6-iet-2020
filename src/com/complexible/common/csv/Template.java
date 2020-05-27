@@ -2,7 +2,7 @@ package com.complexible.common.csv;
 
 import com.complexible.common.csv.valuegenerator.BNodeGenerator;
 import com.complexible.common.csv.valuegenerator.ValueGenerator;
-import com.complexible.common.csv.utilities.ConstantValueGenerator;
+import com.complexible.common.csv.valuegenerator.ConstantValueGenerator;
 import com.complexible.common.csv.utilities.InOutCharsetUtil;
 import com.complexible.common.csv.valuegenerator.templatevaluegenerator.TemplateLiteralGenerator;
 import com.complexible.common.csv.valuegenerator.templatevaluegenerator.TemplateURIGenerator;
